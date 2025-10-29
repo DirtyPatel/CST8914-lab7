@@ -24,10 +24,15 @@ body {
 a{
   color: #006b3a;
 }
-/* (1) restore focus? */
-main a{ 
-  outline: none;
+/* (1) Restored visible focus outlines for keyboard users */
+main a:focus,
+.menu a:focus,
+button:focus,
+input:focus {
+  outline: 2px solid #006b3a;
+  outline-offset: 3px;
 }
+
 h2 {
   margin-top: 0;
 }
@@ -208,11 +213,15 @@ article p {
         <a href="#">Home</a>
         <a href="#">Politics</a>
 
-        <!-- (2) remove tabindex form business link to make it keyboard-focusable -->
+        <!-- (2) REMOVED tabindex form business link to make it keyboard-focusable -->
         <a href="#">Business</a>
         <a href="#">Entertainment</a>
         <a href="#">Sports</a>
-        <a href="#" class="btn-search pull-right"><img src="https://raw.githubusercontent.com/udacity/ud891/2de2a0688c68809a3b453db3a24b1a59e8401459/lesson2-focus/02-dom-order/images/search.svg" alt="Search" />Search</a> 
+
+        <!-- (3) ADDED aria-label for accessibility -->
+        <a href="#" class="btn-search pull-right" aria-label="Search the site">
+
+          <img src="https://raw.githubusercontent.com/udacity/ud891/2de2a0688c68809a3b453db3a24b1a59e8401459/lesson2-focus/02-dom-order/images/search.svg" alt="Search" />Search</a> 
 
       </nav>
     </div>
@@ -220,8 +229,17 @@ article p {
   <div class="newsletter">
     <div class="container">
       <h3>Like the Funion? Consider joining our newsletter!</h3>
-      <input type="text">
-      <button type="button" onfocus="getFocus()">Sign up</button></div>
+
+      <!-- (4) ADDED accessible label for input -->
+      <label for="newsletter-email" class="offscreen">Email address</label>
+      <input id="newsletter-email" type="text" placeholder="Enter your email" />
+
+      <!-- (5) ADDED description and aria-describedby to the button for expected popup behavior -->
+      <p id="popup-note" class="offscreen">
+        The Sign Up button opens a new window.
+      </p>
+
+      <button type="button" onclick="getFocus()" aria-describedby="popup-note">Sign up</button>
       
     </div>
   </div>
